@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Songs</title>
+  <script src="vendors/angular.min.js"></script>
+  <script src="scripts/client.js"></script>
+</head>
+<body>
+  <main ng-controller="SongController as vm">
+    <h1>Songs!</h1>
+    <section>
+      <h2>Add a song</h2>
+      <form>
+        <input ng-model="vm.newSong.track" type="text" placeholder="Track Name">
+        <input ng-model="vm.newSong.artist" type="text" placeholder="Artist">
+        <input ng-model="vm.newSong.published" type="date">
+        <input ng-model="vm.newSong.rank" type="number" min=1 max=999>
+        <button ng-click="vm.addSong(vm.newSong)">Add</button>
+      </form>
+    </section>
+    <section>
+      <h2>All the songs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>Artist</th>
+            <th>Published</th>
+            <th>Rank</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="song in vm.songArray">
+          <tr>
+            <td>
+              {{song.track}}
+            </td>
+            <td>
+              {{song.artist}}
+            </td>
+            <td>
+              {{vm.formatDate(song.published)}}
+            </td>
+            <td>
+              {{song.rank}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+</main><!--End SongController  -->
+</body>
+</html>
