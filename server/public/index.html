@@ -7,23 +7,44 @@
   <title>Songs</title>
   <script src="vendors/angular.min.js"></script>
   <script src="scripts/client.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
   <main ng-controller="SongController as vm">
     <h1>Songs!</h1>
     <section>
       <h2>Add a song</h2>
-      <form>
-        <input ng-model="vm.newSong.track" type="text" placeholder="Track Name">
-        <input ng-model="vm.newSong.artist" type="text" placeholder="Artist">
+      <form class = "form-inline">
+        <label for="vm.newSong.track">Track Name:</label>
+        <input ng-model="vm.newSong.track" type="text">
+        <label for="vm.newSong.artist">Artist:</label>
+        <input ng-model="vm.newSong.artist" type="text">
+        <label for="vm.newSong.published">Published Date:</label>
         <input ng-model="vm.newSong.published" type="date">
+        <label for="vm.newSong.rank">Rank:</label>
         <input ng-model="vm.newSong.rank" type="number" min=1 max=999>
-        <button ng-click="vm.addSong(vm.newSong)">Add</button>
+        <button class="btn-warning btn-xs"  ng-click="vm.addSong(vm.newSong)">Add New Song</button>
+        <br>
       </form>
     </section>
     <section>
-      <h2>All the songs</h2>
-      <table>
+      <h2>Edit a song</h2>
+      <form class = "form-inline">
+        <label for="vm.editSong.track">Track Name to Edit:</label>
+        <input ng-model="vm.editSong.track" type="text">
+        <label for="vm.editSong.artist">Artist to Edit:</label>
+        <input ng-model="vm.editSong.artist" type="text">
+        <label for="vm.editSong.rank">Rank to Edit:</label>
+        <input ng-model="vm.editSong.rank" type="number" min=1 max=999>
+        <button class="btn-warning btn-xs"  ng-click="vm.addEditedSong(vm.editSong)">Add Edited Song</button>
+        <br>
+        <!-- <input ng-model="vm.editRank" type="number" min=1 max=999> -->
+        <br>
+      </form>
+    </section>
+
+    <section>
+      <table class = 'table'>
         <thead>
           <tr>
             <th>Track</th>
@@ -47,9 +68,10 @@
               {{song.rank}}
             </td>
             <td>
-              <input ng-model="vm.editRank.song.id" type="number" min=1 max=999>
-              <button ng-click="vm.updateSongRating(song.id, vm.editRank)">Edit Rating</button>
-              <button ng-click="vm.deleteSong(song.id)">Delete Song</button>
+
+              <!--  vm.updateSongRating(song.id, vm.editRank)-->
+              <button class="btn-info btn-xs" ng-click="vm.updateSong(song.id)">Edit This Song</button>
+              <button class="btn-danger btn-xs" ng-click="vm.deleteSong(song.id)">Delete This Song</button>
             </td>
           </tr>
         </tbody>

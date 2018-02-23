@@ -4,6 +4,7 @@ const SongController = app.controller('SongController', ['$http', function($http
   console.log('Hello, inside SongController');
   let self = this;
   self.newSong = {};
+  self.editSong = {};
   self.songArray= [];
   self.editRank;
 
@@ -22,6 +23,47 @@ const SongController = app.controller('SongController', ['$http', function($http
     })
   }
   self.getAllSongs();
+
+  self.addEditedSong = function(editedSongToAdd){
+    console.log('in update',editedSongToAdd);
+    let id = editedSongToAdd.id;
+      $http({
+        method: 'PUT',
+        url: `/songs/${id}`,
+        data: editedSongToAdd
+      })
+      .then(function (response) {
+        console.log('Updated song rating');
+        self.getAllSongs();
+        self.editSong = {};
+
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+
+
+  }
+  //end addEditedSong
+
+  self.updateSong = function(id){
+    console.log('in updateSong', id);
+    $http({
+      method: 'GET',
+      url: `/songs/${id}`
+    })
+    .then(function(response){
+      console.log('Getting the song:', response);
+      self.editSong = response.data[0];
+      console.log(self.editSong);
+      // displaySongs(response);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  }
+  //end updateSong
+
   // function getNewSong() {
   //   const song = {
   //     track: $('#in-track').val(),
@@ -58,21 +100,9 @@ self.addSong = function(song) {
 
   }
 
-self.updateSongRating = function(id, newRating) {
-  console.log('in update', id, newRating);
-    $http({
-      method: 'PUT',
-      url: `/songs/${id}`,
-      data: { rating: newRating }
-    })
-    .then(function (response) {
-      console.log('Updated song rating');
-      self.getAllSongs();
-    })
-    .catch(function (error){
-      console.log(error);
-    })
-  }
+// self.updateSongRating = function(id, editRank) {
+//
+//   }
 
 self.deleteSong = function (id){
     console.log('indelete client', id);
