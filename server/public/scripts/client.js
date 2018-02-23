@@ -5,7 +5,7 @@ const SongController = app.controller('SongController', ['$http', function($http
   let self = this;
   self.newSong = {};
   self.songArray= [];
-
+  self.editRank;
 
   self.getAllSongs = function() {
     $http({
@@ -50,48 +50,52 @@ self.addSong = function(song) {
       console.log('Added song:', song);
       // clearAddForm();
       self.getAllSongs();
+      self.newSong = {};
     })
     .catch(function(error){
       console.log(error, 'error in .addSong');
     })
+
   }
 
-  function updateSongRating(id, newRating) {
-    $.ajax({
-      type: 'PUT',
+self.updateSongRating = function(id, newRating) {
+  console.log('in update', id, newRating);
+    $http({
+      method: 'PUT',
       url: `/songs/${id}`,
       data: { rating: newRating }
     })
-    .done(function (response) {
+    .then(function (response) {
       console.log('Updated song rating');
-      getAllSongs();
+      self.getAllSongs();
     })
-    .fail(function (error){
+    .catch(function (error){
       console.log(error);
     })
   }
 
-  function deleteSong(id){
-    $.ajax({
-      type: 'DELETE',
+self.deleteSong = function (id){
+    console.log('indelete client', id);
+    $http({
+      method: 'DELETE',
       url: `songs/${id}`,
     })
-    .done(function (response){
+    .then(function (response){
       console.log('Deleted song');
-      getAllSongs();
+      self.getAllSongs();
     })
-    .fail(function(error) {
+    .catch(function(error) {
       console.log(error);
     })
   }
 
-  function displaySongs(songs) {
-    for (let song of songs) {
-      $('#out-songs').append(`<tr><td>${song.track}</td>
-        <td>${song.artist}</td><td>${formatDate(song.published)}</td>
-        <td>${song.rank}</td></tr>`);
-    }
-  }
+  // function displaySongs(songs) {
+  //   for (let song of songs) {
+  //     $('#out-songs').append(`<tr><td>${song.track}</td>
+  //       <td>${song.artist}</td><td>${formatDate(song.published)}</td>
+  //       <td>${song.rank}</td></tr>`);
+  //   }
+  // }
 
 self.formatDate = function(isoDateStr) {
     let result = ''

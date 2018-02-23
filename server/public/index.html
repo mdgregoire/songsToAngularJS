@@ -46,6 +46,11 @@
             <td>
               {{song.rank}}
             </td>
+            <td>
+              <input ng-model="vm.editRank.song.id" type="number" min=1 max=999>
+              <button ng-click="vm.updateSongRating(song.id, vm.editRank)">Edit Rating</button>
+              <button ng-click="vm.deleteSong(song.id)">Delete Song</button>
+            </td>
           </tr>
         </tbody>
       </table>

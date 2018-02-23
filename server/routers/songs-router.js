@@ -37,6 +37,7 @@ router.get('/', function(request, response){
 
 // Delete a single song from /songs/5, where 5 is the id
 router.delete('/:id', (request, response) => {
+  console.log('indelete');
   const id = request.params.id;
   const sqlText = 'DELETE FROM songs WHERE id=$1';
   pool.query(sqlText, [ id ])
