@@ -60,8 +60,8 @@ router.put('/:id', (request, response) => {
   console.log(editedSong.published, 'EDITED SONG PUBLISHED');
   let date = editedSong.published.substring(0,10);
   console.log(date, 'EDITED SONG DATE');
-  const sqlText = `UPDATE songs SET track=$1, artist=$2, rank=$3 WHERE id=$4`;
-  pool.query(sqlText, [editedSong.track, editedSong.artist, editedSong.rank, id])
+  const sqlText = `UPDATE songs SET track=$1, artist=$2, rank=$3, published=$4 WHERE id=$5`;
+  pool.query(sqlText, [editedSong.track, editedSong.artist, editedSong.rank, date, id])
     .then((result) => {
       console.log(`Updated song ${id}`);
       response.sendStatus(200);

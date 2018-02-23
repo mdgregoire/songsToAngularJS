@@ -34,6 +34,8 @@
         <input ng-model="vm.editSong.track" type="text">
         <label for="vm.editSong.artist">Artist to Edit:</label>
         <input ng-model="vm.editSong.artist" type="text">
+        <label for="vm.editSong.published">Published Date to Edit:</label>
+        <input ng-model="vm.editSong.published" ng-value = "vm.fixFormatDate(vm.editSong.published)" type="date">
         <label for="vm.editSong.rank">Rank to Edit:</label>
         <input ng-model="vm.editSong.rank" type="number" min=1 max=999>
         <button class="btn-warning btn-xs"  ng-click="vm.addEditedSong(vm.editSong)">Add Edited Song</button>

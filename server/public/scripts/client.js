@@ -6,7 +6,7 @@ const SongController = app.controller('SongController', ['$http', function($http
   self.newSong = {};
   self.editSong = {};
   self.songArray= [];
-  self.editRank;
+  self.editDate;
 
   self.getAllSongs = function() {
     $http({
@@ -54,8 +54,11 @@ const SongController = app.controller('SongController', ['$http', function($http
     })
     .then(function(response){
       console.log('Getting the song:', response);
+
       self.editSong = response.data[0];
-      console.log(self.editSong);
+      // self.editDate = self.editSong.published.substring(0,10);
+      self.getAllSongs();
+
       // displaySongs(response);
     })
     .catch(function(error){
@@ -135,8 +138,18 @@ self.formatDate = function(isoDateStr) {
     }
     return result;
   }
+
+
+self.fixFormatDate = function(date) {
+  let fixDate = ' '
+  if (date){
+  fixDate = date.substring(0,10);
+  return fixDate;
+  }
+  else{
+    return fixDate
+  }
 }
 
 
-
-]);//end song controller
+}]);//end song controller
