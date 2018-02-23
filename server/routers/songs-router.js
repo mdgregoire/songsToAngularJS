@@ -84,13 +84,21 @@ router.put('/:id', (request, response) => {
 
 router.post('/add', (request, response) => {
   const song = request.body;
+  let track = request.body.track;
+  let artist = request.body.artist;
+  let published = request.body.published.substring(0,10);
+  let rank = request.body.rank;
   console.log('Add song:', song);
 
-  const sqlText = `INSERT INTO songs
-      (artist, track, published, rank)
-      VALUES ($1, $2, $3, $4)`;
-  pool.query(sqlText,
-      [song.artist, song.track, song.published, song.rank])
+  const sqlText = `INSERT INTO track (track)
+                  VALUES (${track});
+                  INSERT INTO artist (artist)
+                  VALUES (${artist});
+                  INSERT INTO published (published)
+                  VALUES (${published});
+                  INSERT INTO rank (rank)
+                  VALUES (${rank});`;
+  pool.query(sqlText)
     .then( (result) => {
       console.log('Added song:', result);
       response.sendStatus(201);
